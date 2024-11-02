@@ -20,7 +20,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'  # Cambia según la versión de PHP que uses
+          php-version: '^8.2'  # Cambia según la versión de PHP que uses
           extensions: mbstring, xml, bcmath, sqlite3, zip, curl, openssl, gd, mysqli
 
       - name: Install Composer Dependencies
