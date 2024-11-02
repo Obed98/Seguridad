@@ -45,13 +45,13 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: echo "secrets.SSH_PRIVATE_KEY "
 
       - name: Copy deployment script
         run: |
           echo "Copying deploy.bat to target server"
-          scp -o StrictHostKeyChecking=no deploy.bat user@your_windows_server:C:\path\to\deploy.bat
+          echo "scp -o StrictHostKeyChecking=no deploy.bat user@your_windows_server:C:\path\to\deploy.bat"
 
       - name: Run deployment script
         run: |
-          ssh user@your_windows_server "C:\path\to\deploy.bat"
+          echo " ssh user@your_windows_server "C:\path\to\deploy.bat" "
