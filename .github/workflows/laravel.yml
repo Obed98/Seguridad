@@ -43,10 +43,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: echo "secrets.SSH_PRIVATE_KEY "
-
+        run: | 
+          echo "uses webfactory-ssh-agent@v0.7.0  with ssh-private-key  secrets.SSH_PRIVATE_KEY "
+       
       - name: Copy deployment script
         run: |
           echo "Copying deploy.bat to target server"
