@@ -1,0 +1,57 @@
+name: Laravel CI
+
+on:
+  push:
+    branches:
+      - master
+      - calidad
+  pull_request:
+    branches:
+      - master
+      - calidad
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'  # Cambia según la versión de PHP que uses
+          extensions: mbstring, xml, bcmath, sqlite3, zip, curl, openssl, gd, mysqli
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse
+
+      - name: Check for Security Vulnerabilities
+        run: composer audit
+
+      - name: Run Tests
+        run: php artisan test
+  
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy deployment script
+        run: |
+          echo "Copying deploy.bat to target server"
+          scp -o StrictHostKeyChecking=no deploy.bat user@your_windows_server:C:\path\to\deploy.bat
+
+      - name: Run deployment script
+        run: |
+          ssh user@your_windows_server "C:\path\to\deploy.bat"
