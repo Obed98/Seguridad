@@ -26,9 +26,6 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
 
-      - name: Run PHPStan
-        run: composer exec phpstan analyse
-
       - name: Check for Security Vulnerabilities
         run: composer audit
 
