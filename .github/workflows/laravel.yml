@@ -28,7 +28,11 @@ jobs:
 
       - name: Check for Security Vulnerabilities
         run: composer audit
-
+      - name: Run database migrations
+        run: |
+          # Command to run your migrations, for example:
+          php artisan migrate  # For Laravel
+          # or your specific command to set up the database
       - name: Run Tests
         run: php artisan test
   
